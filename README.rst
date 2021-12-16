@@ -32,18 +32,18 @@ Features
     from twitter_demographer.components import Rehydrate, M3GenderAndAge
     import pandas as pd
 
-    br = "TWITTER BEARER"
+    bearer_token = "TWITTER BEARER"
 
     demo = Demographer()
 
-    re = Rehydrate(br, [])
-    me = M3GenderAndAge()
+    component_1 = Rehydrate(bearer_token, [])
+    component_2 = M3GenderAndAge()
 
-
+    # here's some tweet id
     data = pd.DataFrame({"tweet_ids" : ["1431271570681606145", "1431271582861774854"]})
 
-    demo.add_component(re)
-    demo.add_component(me)
+    demo.add_component(component_1) # we want to rehydrate the tweets first
+    demo.add_component(component_2) # we want to predict (binary) gender and age then
 
     print(demo.infer(data))
 
