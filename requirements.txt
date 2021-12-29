@@ -7,3 +7,6 @@ transformers==4.12.5
 torch==1.9.0
 m3inference
 appdirs==1.4.4
+geocoder
+datasets
+contextualized-topic-models
