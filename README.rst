@@ -37,7 +37,7 @@ Features
 
     demo = Demographer()
 
-    component_1 = Rehydrate(br)
+    component_1 = Rehydrate(twitter_bearer_token)
     component_2 = GeoNamesDecoder(geonames_token)
     component_3 = GenderAndAge()
 
