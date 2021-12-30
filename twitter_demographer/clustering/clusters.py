@@ -1,22 +1,19 @@
 from twitter_demographer.components import Component
 from sentence_transformers import SentenceTransformer
-from sklearn.cluster import KMeans
 import umap
 import hdbscan
 
-
-
 class BaseClustering(Component):
+
+    def __init__(self, embedding_model):
+        super().__init__()
+        self.embedding_model = embedding_model
 
     def outputs(self):
         return ["clusters"]
 
     def inputs(self):
         return ["text"]
-
-    def __init__(self, embedding_model):
-        super().__init__()
-        self.embedding_model = embedding_model
 
     def infer(self, data):
         texts = data["text"].fillna(" ")

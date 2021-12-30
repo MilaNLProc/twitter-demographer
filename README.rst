@@ -32,26 +32,31 @@ Features
     from twitter_demographer.demographics.m3 import GenderAndAge
     import pandas as pd
 
-    bearer_token = "TWITTER BEARER"
+    twitter_bearer_token = "TWITTER BEARER"
+    geonames_token = "GEONAMES TOKEN"
 
     demo = Demographer()
 
-    component_1 = Rehydrate(bearer_token)
-    component_2 = GenderAndAge()
+    component_1 = Rehydrate(br)
+    component_2 = GeoNamesDecoder(geonames_token)
+    component_3 = GenderAndAge()
 
-    # here are some tweet ids
-    data = pd.DataFrame({"tweet_ids" : ["1431271570681606145", "1431271582861774854"]})
-
-    demo.add_component(component_1) # we want to rehydrate the tweets first
-    demo.add_component(component_2) # we want to predict (binary) gender and age then
+    data = pd.DataFrame({"tweet_ids": ["1431271582861774854", "1467887357668077581",
+                                       "1467887350084689928", "1467887352647462912"]})
+    print(data)
+    demo.add_component(component_1)
+    demo.add_component(component_2)
+    demo.add_component(component_3)
 
     print(demo.infer(data))
 
 .. code-block:: python
 
-                 tweet_ids      screen_name              name user_id_str  ...                                               text    age gender   is_org
-    0  1431271570681606145  federicobianchy  Federico Bianchi  2332157006  ...  🎉 #EMNLP2021 new paper! "SWEAT: Scoring Polari...  19-29   male  non-org
-    1  1431271582861774854  federicobianchy  Federico Bianchi  2332157006  ...  SWEAT can be used on any pair of corpora! We u...  19-29   male  non-org
+                 tweet_ids      screen_name              name           location user_id_str  ...  geo_location_country  geo_location_address    age gender   is_org
+    0  1431271582861774854  federicobianchy  Federico Bianchi  Milano, Lombardia  2332157006  ...                 Italy                 Milan  19-29   male  non-org
+    1  1467887357668077581  federicobianchy  Federico Bianchi  Milano, Lombardia  2332157006  ...                 Italy                 Milan  19-29   male  non-org
+    2  1467887350084689928  federicobianchy  Federico Bianchi  Milano, Lombardia  2332157006  ...                 Italy                 Milan  19-29   male  non-org
+    3  1467887352647462912  federicobianchy  Federico Bianchi  Milano, Lombardia  2332157006  ...                 Italy                 Milan  19-29   male  non-org
 
 Components
 ----------
