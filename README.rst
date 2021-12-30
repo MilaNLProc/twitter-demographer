@@ -14,7 +14,7 @@ Twitter Demographer
         :alt: Documentation Status
 
 
-Twitter Demographer provides a simple API to extend your twitter data with additional variables such as sentiment, user location,
+Twitter Demographer provides a simple API to enrich your twitter data with additional variables such as sentiment, user location,
 gender and age. The tool is completely extensible and you can add your own components to the system.
 
 
