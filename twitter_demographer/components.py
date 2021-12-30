@@ -1,6 +1,4 @@
 import abc
-
-
 from tqdm import tqdm
 import tweepy
 from tweepy.errors import BadRequest
@@ -28,6 +26,10 @@ class Component(ABC):
         pass
 
     def initialize_return_dict(self):
+        """
+        A simple function that creates a dictionary with keys = parameters and values empty lists
+        :return:
+        """
         results = {}
 
         for param in self.output_parameters:
@@ -38,6 +40,9 @@ class Component(ABC):
 class Rehydrate(Component):
 
     def __init__(self, bearer_token):
+        """
+        :param bearer_token: token from the twitter developer page
+        """
         super().__init__()
         self.api = tweepy.Client(bearer_token, wait_on_rate_limit=True)
 

@@ -10,3 +10,5 @@ appdirs==1.4.4
 geocoder
 datasets
 contextualized-topic-models
+umap
+hdbscan

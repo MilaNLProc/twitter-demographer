@@ -6,16 +6,19 @@ from multiprocessing import Pool
 from appdirs import user_cache_dir
 import shutil
 
-class M3GenderAndAge(Component):
 
+class GenderAndAge(Component):
+    """
+    Provides a wrapper on the m3 dataset to predict age and binary gender in twitter data
+    """
     def outputs(self):
         return ["screen_name",
-        "name",
-        "user_id_str",
-        "user_id",
-        "id",
-        "description",
-        "profile_image_url"]
+                "name",
+                "user_id_str",
+                "user_id",
+                "id",
+                "description",
+                "profile_image_url"]
 
     def inputs(self):
         return ["user_id", "description", "profile_image_url"]
@@ -24,6 +27,7 @@ class M3GenderAndAge(Component):
         super().__init__()
 
     def infer(self, data):
+
         classifier = InternalGenderAgeFinder()
 
         results = self.initialize_return_dict()
@@ -70,10 +74,11 @@ class InternalGenderAgeFinder:
 
         for user in users:
 
-            if ('user_id_str' in user) and (not('user_id' in user)):
+            if ('user_id_str' in user) and (not ('user_id' in user)):
                 user['user_id'] = str(user['user_id_str'])
             try:
-                img_file_resize = "{}/{}_224x224.{}".format(cache_dir, user['user_id'], utils.get_extension(user['profile_image_url']))
+                img_file_resize = "{}/{}_224x224.{}".format(cache_dir, user['user_id'],
+                                                            utils.get_extension(user['profile_image_url']))
             except:
                 img_file_resize = ""
 
@@ -84,11 +89,12 @@ class InternalGenderAgeFinder:
 
         for user, (is_retrieved, a, exist) in zip(users, outputs):
 
-            if ('user_id_str' in user) and (not('user_id' in user)):
+            if ('user_id_str' in user) and (not ('user_id' in user)):
                 user['user_id'] = str(user['user_id_str'])
 
             try:
-                img_file_resize = "{}/{}_224x224.{}".format(cache_dir, user['user_id'], utils.get_extension(user['profile_image_url']))
+                img_file_resize = "{}/{}_224x224.{}".format(cache_dir, user['user_id'],
+                                                            utils.get_extension(user['profile_image_url']))
             except:
                 img_file_resize = ""
 
@@ -101,22 +107,20 @@ class InternalGenderAgeFinder:
             else:
                 without_image_users.append(user)
 
-        pred_imaged = self.m3.infer(imaged_users, output_format='json', batch_size = batch_size)
-        pred_without = self.m3_noimg.infer(without_image_users, output_format='json', batch_size = batch_size)
+        pred_imaged = self.m3.infer(imaged_users, output_format='json', batch_size=batch_size)
+        pred_without = self.m3_noimg.infer(without_image_users, output_format='json', batch_size=batch_size)
         fused = {**pred_imaged, **pred_without}
-
 
         shutil.rmtree(cache_dir)
         output_classifier = {}
         for key, value in fused.items():
-            gender = 'male' if value['gender']["male"] >value['gender']["female"] else 'female'
+            gender = 'male' if value['gender']["male"] > value['gender']["female"] else 'female'
             is_org = 'non-org' if value["org"]['non-org'] > value["org"]['is-org'] else 'is-org'
-            age_dict = {k:v for (k,v) in value["age"].items()}
+            age_dict = {k: v for (k, v) in value["age"].items()}
             age = max(age_dict, key=age_dict.get)
 
-
-            output_classifier[str(key)]= { "age": age,
-                                       "gender": gender,
-                                      "is_org": is_org}
+            output_classifier[str(key)] = {"age": age,
+                                           "gender": gender,
+                                           "is_org": is_org}
 
         return output_classifier
