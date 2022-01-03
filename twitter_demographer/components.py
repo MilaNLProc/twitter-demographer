@@ -7,7 +7,6 @@ from abc import ABC
 
 transformers.logging.set_verbosity(transformers.logging.ERROR)
 
-
 class Component(ABC):
 
     def __init__(self):

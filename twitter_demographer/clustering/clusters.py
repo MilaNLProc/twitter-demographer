@@ -4,8 +4,17 @@ import umap
 import hdbscan
 
 class BaseClustering(Component):
+    """
+    This BaseClustering is strongly inspired to BERTopic way of creating the clusters
+
+    See: https://github.com/MaartenGr/BERTopic
+    """
 
     def __init__(self, embedding_model):
+        """
+
+        :param embedding_model: SentenceBERT embedding model
+        """
         super().__init__()
         self.embedding_model = embedding_model
 

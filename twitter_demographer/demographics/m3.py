@@ -6,11 +6,15 @@ from multiprocessing import Pool
 from appdirs import user_cache_dir
 import shutil
 
-
 class GenderAndAge(Component):
     """
     Provides a wrapper on the m3 dataset to predict age and binary gender in twitter data
     """
+
+
+    def __init__(self):
+        super().__init__()
+
     def outputs(self):
         return ["screen_name",
                 "name",
@@ -23,8 +27,6 @@ class GenderAndAge(Component):
     def inputs(self):
         return ["user_id", "description", "profile_image_url"]
 
-    def __init__(self):
-        super().__init__()
 
     def infer(self, data):
 

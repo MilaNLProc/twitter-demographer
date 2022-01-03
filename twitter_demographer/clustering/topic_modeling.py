@@ -5,6 +5,11 @@ from contextualized_topic_models.utils.data_preparation import TopicModelDataPre
 from contextualized_topic_models.utils.preprocessing import WhiteSpacePreprocessingStopwords
 
 class TopicModeler:
+    """
+    A simple topic modeler based on Contextualized Topic Models
+
+    see: https://aclanthology.org/2021.acl-short.96/
+    """
 
     def __init__(self, topic_num, embedding_model="paraphrase-multilingual-mpnet-base-v2"):
         self.topic_num = topic_num

@@ -1,12 +1,6 @@
-from io import BytesIO
-from PIL import Image
-import logging
-import os
 import urllib.request
 from io import BytesIO
-
 from PIL import Image
-from tqdm import tqdm
 
 def get_extension(img_path):
     dotpos = img_path.rfind(".")

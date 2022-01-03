@@ -3,11 +3,11 @@ Twitter Demographer
 ===================
 
 
-.. image:: https://img.shields.io/pypi/v/twitter_demographer.svg
-        :target: https://pypi.python.org/pypi/twitter_demographer
+.. image:: https://img.shields.io/pypi/v/twitter-demographer.svg
+        :target: https://pypi.python.org/pypi/twitter-demographer
 
-.. image:: https://img.shields.io/travis/vinid/twitter_demographer.svg
-        :target: https://travis-ci.com/vinid/twitter_demographer
+.. image:: https://github.com/MilaNLProc/twitter-demographer/workflows/Python%20package/badge.svg
+        :target: https://github.com/MilaNLProc/twitter-demographer/actions
 
 .. image:: https://readthedocs.org/projects/twitter-demographer/badge/?version=latest
         :target: https://twitter-demographer.readthedocs.io/en/latest/?version=latest
@@ -24,6 +24,12 @@ gender and age. The tool is completely extensible and you can add your own compo
 
 Features
 --------
+
+From a simple set of tweet ids, Twitter Demographer allows you to rehydrate them and to add additional
+variables to your dataset.
+
+You are not forced to use a specific component. The design of this tool should be modular enough to allow you to
+decide what to add and what to remove.
 
 .. code-block:: python
 
@@ -57,6 +63,12 @@ Features
     1  1467887357668077581  federicobianchy  Federico Bianchi  Milano, Lombardia  2332157006  ...                 Italy                 Milan  19-29   male  non-org
     2  1467887350084689928  federicobianchy  Federico Bianchi  Milano, Lombardia  2332157006  ...                 Italy                 Milan  19-29   male  non-org
     3  1467887352647462912  federicobianchy  Federico Bianchi  Milano, Lombardia  2332157006  ...                 Italy                 Milan  19-29   male  non-org
+
+Use-Case
+--------
+
+Say you want to use an HuggingFace Classifier on some Twitter Data you have. For example, you might want to
+detect the sentiment of the data you have.
 
 Components
 ----------
