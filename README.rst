@@ -92,10 +92,7 @@ GeoNamesDecoder to predict the location of a user from a string of text looks li
 
         def infer(self, data):
             geo = self.initialize_return_dict()
-            pbar = tqdm(total=len(data))
-
             for val in data["location"]:
-                pbar.update(1)
                 if val is None:
                     geo["geo_location_country"].append(None)
                     geo["geo_location_address"].append(None)
@@ -103,8 +100,12 @@ GeoNamesDecoder to predict the location of a user from a string of text looks li
                     g = geocoder.geonames(val, key=self.key)
                     geo["geo_location_country"].append(g.country)
                     geo["geo_location_address"].append(g.address)
-            pbar.close()
             return geo
+
+Limitations and Ethical Considerations
+--------------------------------------
+
+
 
 Credits
 -------
