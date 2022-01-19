@@ -4,6 +4,9 @@ from twitter_demographer.components import Component
 
 
 class GeoNamesDecoder(Component):
+    """
+    Wrappers on the geocoder API to disambiguate users' locations
+    """
 
     def __init__(self, key):
         super().__init__()

@@ -68,7 +68,7 @@ Use-Case
 --------
 
 Say you want to use an HuggingFace Classifier on some Twitter Data you have. For example, you might want to
-detect the sentiment of the data you have.
+detect the sentiment of the data you have. The data you have might
 
 Components
 ----------
@@ -105,6 +105,8 @@ GeoNamesDecoder to predict the location of a user from a string of text looks li
 Limitations and Ethical Considerations
 --------------------------------------
 
+Inferring user attributes always carries the risk of compromising user privacy, while this process can be useful for
+understanding and explaining phenomena in the social sciences, one should always consider the issues that this can create.
 
 
 Credits

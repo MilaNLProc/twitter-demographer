@@ -6,7 +6,7 @@ from contextualized_topic_models.utils.preprocessing import WhiteSpacePreprocess
 
 class TopicModeler:
     """
-    A simple topic modeler based on Contextualized Topic Models
+    A simple topic modeler based on Contextualized Topic Models. This topic model is multilingual by default
 
     see: https://aclanthology.org/2021.acl-short.96/
     """

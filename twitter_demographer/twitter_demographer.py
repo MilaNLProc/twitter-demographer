@@ -1,5 +1,7 @@
 class Demographer:
-
+    """
+    Main entry point of twitter-demographer.
+    """
     def __init__(self, cache_steps=False):
         self.components = []
         self.cache_steps = cache_steps
@@ -7,7 +9,6 @@ class Demographer:
 
     def add_component(self, component):
         if len(self.components) == 0:
-
             self.components.append(component)
             self.local_inputs.extend(component.outputs() + component.inputs()) # first run we add both
         else:
@@ -24,7 +25,7 @@ class Demographer:
                 data[key] = value
 
             if self.cache_steps:
-                data.to_csv("local.csv", index=False)
+                data.to_parquet("local.csv", engine="pyarrow")
             del component
 
         return data
