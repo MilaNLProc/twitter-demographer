@@ -6,11 +6,12 @@ from datasets import Dataset
 import numpy as np
 from twitter_demographer.components import Component
 
+
 class HuggingFaceClassifier(Component):
 
     def __init__(self, model_name):
-        super().__init__()
         self.model_name = model_name
+        super().__init__()
 
     def inputs(self):
         return ["text"]
@@ -19,7 +20,6 @@ class HuggingFaceClassifier(Component):
         return [f"{self.model_name}"]
 
     def infer(self, data):
-
         tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         model = AutoModelForSequenceClassification.from_pretrained(self.model_name)
 
