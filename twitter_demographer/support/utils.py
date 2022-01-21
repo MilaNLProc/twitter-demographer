@@ -18,10 +18,8 @@ def download_resize_img(url, img_out_path, img_out_path_fullsize=None):
         if img_out_path_fullsize != None:
             with open(img_out_path_fullsize, "wb") as fh:
                 fh.write(img_data)
-                print("ok")
     except urllib.error.HTTPError as err:
-        print("___________-")
-        print(err)
+
         #logger.warn(url)
         #logger.warn("Error fetching profile image from Twitter. HTTP error code was {}.".format(err.code))
         #os.mknod(img_out_path)
@@ -34,17 +32,14 @@ def download_resize_img(url, img_out_path, img_out_path_fullsize=None):
     return True, resize_img(BytesIO(img_data), img_out_path, force=True), 1
 
 def resize_img(img_path, img_out_path, filter=Image.BILINEAR, force=False):
-    print(img_path)
-    img = Image.open(img_path).convert("RGB")
-    print(img)
-    print("---")
+    #img = Image.open(img_path).convert("RGB")
+
     try:
         img = Image.open(img_path).convert("RGB")
         if img.size[0] + img.size[1] < 400 and not force:
             print(f'{img_path} is too small. Skip.')
             return
         img = img.resize((224, 224), filter)
-        print("quaa", img_out_path)
         img.save(img_out_path)
         return True
     except Exception as e:

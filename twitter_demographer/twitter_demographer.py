@@ -1,3 +1,5 @@
+import hashlib
+
 class Demographer:
     """
     Main entry point of twitter-demographer.
@@ -27,5 +29,13 @@ class Demographer:
             if self.cache_steps:
                 data.to_parquet("local.csv", engine="pyarrow")
             del component
+
+        data["screen_name"] = data["screen_name"].apply(lambda x : hashlib.sha3_256(str(x).encode()).hexdigest())
+
+        drop_keys = ['name', 'user_id_str',
+                     'user_id', 'id', 'profile_image_url', 'description']
+
+        for key in drop_keys:
+            del data[key]
 
         return data

@@ -1,4 +1,6 @@
 import abc
+
+import pandas as pd
 from tqdm import tqdm
 import tweepy
 from tweepy.errors import BadRequest
@@ -84,6 +86,13 @@ class Rehydrate(Component):
             pbar.set_description("Running Hydrate")
 
             tweet = requested[0]
+            if (len(requested.errors)) > 0:
+                # if there are errors, we have a None
+                pbar.update(1)
+                for key in self.outputs():
+                    results[key].append(None)
+                continue
+
             user_includes = requested[1]["users"][0]
 
             results["text"].append(tweet.text)
