@@ -14,11 +14,11 @@ def tt(tokenizer):
     return tokenize_function
 
 def prepare_dataset(dataset, tokenizer):
+
     dataset = dataset.map(
         tt(tokenizer),
         batched=True,
         remove_columns=["texts"],
-        desc="Tokenizing",
 
     )
 

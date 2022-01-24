@@ -8,6 +8,9 @@ from twitter_demographer.components import Component
 from twitter_demographer.components import not_null
 import transformers
 transformers.logging.set_verbosity_error()
+import datasets
+
+datasets.set_progress_bar_enabled(False)
 
 class HuggingFaceClassifier(Component):
 
