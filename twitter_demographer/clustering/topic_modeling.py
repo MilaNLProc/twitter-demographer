@@ -3,6 +3,8 @@ import pandas as pd
 from contextualized_topic_models.models.ctm import ZeroShotTM
 from contextualized_topic_models.utils.data_preparation import TopicModelDataPreparation
 from contextualized_topic_models.utils.preprocessing import WhiteSpacePreprocessingStopwords
+import re
+
 
 class TopicModeler:
     """
@@ -19,6 +21,8 @@ class TopicModeler:
     def infer(self, data):
         df = pd.DataFrame({"text": data["text"].values.tolist()})
         df = df[~df["text"].isna()]
+
+        df["text"] = df["text"].apply(lambda x : re.sub(r'\s*(?:https?://)?www\.\S*\.[A-Za-z]{2,5}\s*', '', x))
 
         documents = df["text"].values.tolist()
 

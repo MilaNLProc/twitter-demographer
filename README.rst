@@ -38,37 +38,54 @@ decide what to add and what to remove.
     from twitter_demographer.demographics.m3 import GenderAndAge
     import pandas as pd
 
-    twitter_bearer_token = "TWITTER BEARER"
-    geonames_token = "GEONAMES TOKEN"
-
     demo = Demographer()
 
-    component_1 = Rehydrate(twitter_bearer_token)
-    component_2 = GeoNamesDecoder(geonames_token)
-    component_3 = GenderAndAge()
+    data = pd.DataFrame({"tweet_ids": ["1477976329710673921", "1467887350084689928", "1467887352647462912", "1290664307370360834", "1465284810696445952"]})
 
-    data = pd.DataFrame({"tweet_ids": ["1431271582861774854", "1467887357668077581",
-                                       "1467887350084689928", "1467887352647462912"]})
-    print(data)
-    demo.add_component(component_1)
-    demo.add_component(component_2)
-    demo.add_component(component_3)
+    component_one = Rehydrate(BEARER_TOKEN)
+    component_two = GeoNamesDecoder(GEONAMES_TOKEN)
+    component_three = HuggingFaceClassifier("cardiffnlp/twitter-roberta-base-sentiment")
+
+
+    demo.add_component(component_one)
+    demo.add_component(component_two)
+    demo.add_component(component_three)
 
     print(demo.infer(data))
 
 .. code-block:: python
 
-                 tweet_ids      screen_name              name           location user_id_str  ...  geo_location_country  geo_location_address    age gender   is_org
-    0  1431271582861774854  federicobianchy  Federico Bianchi  Milano, Lombardia  2332157006  ...                 Italy                 Milan  19-29   male  non-org
-    1  1467887357668077581  federicobianchy  Federico Bianchi  Milano, Lombardia  2332157006  ...                 Italy                 Milan  19-29   male  non-org
-    2  1467887350084689928  federicobianchy  Federico Bianchi  Milano, Lombardia  2332157006  ...                 Italy                 Milan  19-29   male  non-org
-    3  1467887352647462912  federicobianchy  Federico Bianchi  Milano, Lombardia  2332157006  ...                 Italy                 Milan  19-29   male  non-org
+                                             screen_name                created_at  ... geo_location_address cardiffnlp/twitter-roberta-base-sentiment
+    1  ef51346744a099e011ff135f7b223186d4dab4d38bb1d8... 2021-12-06 16:03:10+00:00  ...                Milan                                         1
+    4  146effc0d60c026197afe2404c4ee35dfb07c7aeb33720... 2021-11-29 11:41:37+00:00  ...                Milan                                         2
+    2  ef51346744a099e011ff135f7b223186d4dab4d38bb1d8... 2021-12-06 16:03:11+00:00  ...                Milan                                         1
+    0  241b67c6c698a70b18533ea7d4196e6b8f8eafd39afc6a... 2022-01-03 12:13:11+00:00  ...               Zurich                                         2
+    3  df94741e2317dc8bfca7506f575ba3bd9a83deabfd9eec... 2020-08-04 15:02:04+00:00  ...            Viganello                                         2
 
 Use-Case
 --------
 
-Say you want to use an HuggingFace Classifier on some Twitter Data you have. For example, you might want to
-detect the sentiment of the data you have. The data you have might
+Say you want to use a custom classifier on some Twitter Data you have. For example, you might want to
+detect the sentiment of the data using your own classifier.
+
+.. code-block:: python
+
+    class YourClassifier(Component):
+        def __init__(self, model):
+            self.model = model
+            super().__init__()
+
+        def inputs(self):
+            return ["text"]
+
+        def outputs(self):
+            return [f"my_classifier"]
+
+        # not null decorator helps you skip those record that have None in the field
+        @not_null("text")
+        def infer(self, data):
+
+            return {"my_classifier": model.predict(data["text"])}
 
 Components
 ----------

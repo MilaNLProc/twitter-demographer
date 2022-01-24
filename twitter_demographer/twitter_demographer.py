@@ -23,6 +23,7 @@ class Demographer:
 
     def infer(self, data):
         pbar = tqdm(total=len(self.components), position=0)
+        data = data.copy()
         pbar.set_description("Running Demographer")
         for component in self.components:
 
