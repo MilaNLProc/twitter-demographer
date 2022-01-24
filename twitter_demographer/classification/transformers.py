@@ -5,6 +5,7 @@ import pandas as pd
 from datasets import Dataset
 import numpy as np
 from twitter_demographer.components import Component
+from twitter_demographer.components import not_null
 
 
 class HuggingFaceClassifier(Component):
@@ -19,26 +20,19 @@ class HuggingFaceClassifier(Component):
     def outputs(self):
         return [f"{self.model_name}"]
 
+    @not_null("text")
     def infer(self, data):
+
         tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         model = AutoModelForSequenceClassification.from_pretrained(self.model_name)
 
         df = pd.DataFrame({"texts": data["text"].values.tolist()})
 
-        df = df[~df["texts"].isna()]
-
         train_dataset = Dataset.from_pandas(df)
         train_dataset = prepare_dataset(train_dataset, tokenizer)
 
-        trainer = Trainer(
-            model=model,
-        )
+        trainer = Trainer(model=model)
 
         local_results = np.argmax(trainer.predict(train_dataset)[0], axis=1)
 
-        returned = [None]*len(data)
-
-        for index, value in zip(df.index.values.tolist(), local_results):
-            returned[index] = value
-
-        return {self.model_name: returned}
+        return {self.model_name: local_results}

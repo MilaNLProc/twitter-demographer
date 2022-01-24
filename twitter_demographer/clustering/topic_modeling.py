@@ -15,6 +15,7 @@ class TopicModeler:
         self.topic_num = topic_num
         self.embedding_model = embedding_model
 
+
     def infer(self, data):
         df = pd.DataFrame({"text": data["text"].values.tolist()})
         df = df[~df["text"].isna()]

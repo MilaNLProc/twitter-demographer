@@ -5,6 +5,7 @@ from tqdm import tqdm
 import tweepy
 from tweepy.errors import BadRequest
 import transformers
+from collections import defaultdict
 from abc import ABC
 
 transformers.logging.set_verbosity(transformers.logging.ERROR)
@@ -108,3 +109,36 @@ class Rehydrate(Component):
 
         pbar.close()
         return results
+
+def not_null(param):
+    """
+    k = pd.DataFrame({"text" : ["a", None, "b"]})
+
+    @not_null("text")
+    def method(data):
+        return {"new_label" : [1 for _ in data.iterrows()]}
+
+    print(class_.method(k)) # index at 1 should be None
+
+    {'new_label': [1, None, 1]}
+
+    """
+    def Inner(func):
+        def wrapper(*args, **kwargs):
+
+            data = args[1]
+            to_function = data[~(data[param].isna())]
+            args = (args[0],) + (to_function,) + args[2:]
+            resulted = func(*args, **kwargs)
+
+            new_dict = dict()
+
+            for keys in resulted:
+                new_dict[keys] = [None] * len(data)
+                for index, value in zip(to_function.index.values.tolist(), resulted[keys]):
+                    new_dict[keys][index] = value
+
+            return new_dict
+        return wrapper
+    return Inner
+
