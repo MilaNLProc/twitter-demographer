@@ -1,5 +1,6 @@
 from twitter_demographer.components import Component
 from m3inference import M3Inference
+from m3inference import get_lang
 import os
 from twitter_demographer.support import utils
 from multiprocessing import Pool
@@ -25,16 +26,18 @@ class GenderAndAge(Component):
                 "profile_image_url"]
 
     def inputs(self):
-        return ["user_id", "description", "profile_image_url"]
+        return ["user_id", "description", "profile_image_url", 'text']
 
     def infer(self, data):
         classifier = InternalGenderAgeFinder()
 
         results = self.initialize_return_dict()
 
-        data = data[list(results.keys())]
+        #data = data[list(results.keys())]
 
         to_test_data = data.drop_duplicates(subset=["screen_name"])
+
+        to_test_data["lang"] = to_test_data["text"].apply(lambda x: get_lang(x))
 
         to_test_data = to_test_data.to_dict("records")
 
@@ -87,7 +90,7 @@ class InternalGenderAgeFinder:
         with Pool(4) as p:
             outputs = p.starmap(utils.download_resize_img, images)
 
-        for user, (is_retrieved, a, exist) in zip(users, outputs):
+        for user, is_retrieved in zip(users, outputs):
 
             if ('user_id_str' in user) and (not ('user_id' in user)):
                 user['user_id'] = str(user['user_id_str'])
@@ -100,10 +103,11 @@ class InternalGenderAgeFinder:
 
             user['img_path'] = img_file_resize
             user['description'] = user['description']
-            user['lang'] = 'un'
+            user['lang'] = user["lang"]
 
-            if is_retrieved and a:
+            if is_retrieved:
                 imaged_users.append(user)
+                print(imaged_users)
             else:
                 without_image_users.append(user)
 

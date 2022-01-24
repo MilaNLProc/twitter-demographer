@@ -1,3 +1,7 @@
+"""
+Code has been imported from the M3Inference Library.
+"""
+
 import urllib.request
 from io import BytesIO
 from PIL import Image
@@ -18,21 +22,14 @@ def download_resize_img(url, img_out_path, img_out_path_fullsize=None):
         if img_out_path_fullsize != None:
             with open(img_out_path_fullsize, "wb") as fh:
                 fh.write(img_data)
-    except urllib.error.HTTPError as err:
 
-        #logger.warn(url)
-        #logger.warn("Error fetching profile image from Twitter. HTTP error code was {}.".format(err.code))
-        #os.mknod(img_out_path)
-        #raise err
-        return False, False, 0
-#     print('here')
     except:
-        return False, False, 0
+        print("Something wrong happened in downloading the image")
+        return False
 
-    return True, resize_img(BytesIO(img_data), img_out_path, force=True), 1
+    return resize_img(BytesIO(img_data), img_out_path, force=True)
 
 def resize_img(img_path, img_out_path, filter=Image.BILINEAR, force=False):
-    #img = Image.open(img_path).convert("RGB")
 
     try:
         img = Image.open(img_path).convert("RGB")
@@ -42,7 +39,7 @@ def resize_img(img_path, img_out_path, filter=Image.BILINEAR, force=False):
         img = img.resize((224, 224), filter)
         img.save(img_out_path)
         return True
+
     except Exception as e:
         print(f'Error when resizing {img_path}\nThe error message is {e} for {img_out_path}\n')
-        #logger.warning(f'Error when resizing {img_path}\nThe error message is {e} for {img_out_path}\n')
         return False

@@ -48,3 +48,8 @@ class Demographer:
         data = data.sample(frac=1)
 
         return data
+
+    def get_json(self):
+        json_dict = {}
+        for component in self.components:
+            json_dict[type(component).__name__] = component.__dict__

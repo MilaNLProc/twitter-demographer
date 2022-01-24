@@ -13,6 +13,9 @@ import datasets
 datasets.set_progress_bar_enabled(False)
 
 class HuggingFaceClassifier(Component):
+    """
+    Wraps a huggingface ForSequenceClassification model
+    """
 
     def __init__(self, model_name):
         self.model_name = model_name
@@ -41,6 +44,6 @@ class HuggingFaceClassifier(Component):
 
         transformers.logging.set_verbosity_error()
 
-        local_results = np.argmax(trainer.predict(train_dataset, )[0], axis=1)
+        local_results = np.argmax(trainer.predict(train_dataset)[0], axis=1)
 
         return {self.model_name: local_results}
