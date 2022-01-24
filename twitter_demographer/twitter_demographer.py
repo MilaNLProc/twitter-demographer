@@ -1,5 +1,8 @@
 import hashlib
 from tqdm import tqdm
+import datetime
+import json
+
 
 class Demographer:
     """
@@ -50,7 +53,10 @@ class Demographer:
 
         return data
 
-    def get_json(self):
-        json_dict = {}
+    def get_versioned_json(self):
+        json_dict = {"run_at": datetime.datetime.now().time(), "components" : []}
+
         for component in self.components:
-            json_dict[type(component).__name__] = component.__dict__
+            json_dict["components"].append({type(component).__name__ : component.__dict__})
+
+        return json.dumps(json_dict)
