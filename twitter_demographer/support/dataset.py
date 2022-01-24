@@ -18,7 +18,8 @@ def prepare_dataset(dataset, tokenizer):
         tt(tokenizer),
         batched=True,
         remove_columns=["texts"],
-        desc="Tokenizing"
+        desc="Tokenizing",
+
     )
 
     dataset.set_format("torch")

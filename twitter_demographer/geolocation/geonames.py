@@ -1,6 +1,8 @@
 from tqdm import tqdm
 import geocoder
 from twitter_demographer.components import Component
+import logging
+
 
 
 class GeoNamesDecoder(Component):
@@ -19,6 +21,8 @@ class GeoNamesDecoder(Component):
         return ["location"]
 
     def infer(self, data):
+        logger = logging.StreamHandler()
+        logger.setLevel(logging.ERROR)
         geo = self.initialize_return_dict()
         pbar = tqdm(total=len(data))
 

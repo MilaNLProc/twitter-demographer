@@ -6,7 +6,8 @@ from datasets import Dataset
 import numpy as np
 from twitter_demographer.components import Component
 from twitter_demographer.components import not_null
-
+import transformers
+transformers.logging.set_verbosity_error()
 
 class HuggingFaceClassifier(Component):
 
@@ -31,8 +32,12 @@ class HuggingFaceClassifier(Component):
         train_dataset = Dataset.from_pandas(df)
         train_dataset = prepare_dataset(train_dataset, tokenizer)
 
+        transformers.logging.set_verbosity_error()
+
         trainer = Trainer(model=model)
 
-        local_results = np.argmax(trainer.predict(train_dataset)[0], axis=1)
+        transformers.logging.set_verbosity_error()
+
+        local_results = np.argmax(trainer.predict(train_dataset, )[0], axis=1)
 
         return {self.model_name: local_results}
