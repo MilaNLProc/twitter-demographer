@@ -36,7 +36,7 @@ class Demographer:
             data["screen_name"] = data["screen_name"].apply(
                 lambda x: hashlib.sha3_256(str(hash(x) + hash("hash")).encode()).hexdigest())
 
-        drop_keys = ['name', 'user_id_str',
+        drop_keys = ['tweet_ids', 'name', 'user_id_str',
                      'user_id', 'id', 'profile_image_url', 'description']
 
         for key in drop_keys:
