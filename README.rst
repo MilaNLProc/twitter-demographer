@@ -107,13 +107,10 @@ GeoNamesDecoder to predict the location of a user from a string of text looks li
         def inputs(self):
             return ["location"]
 
+        @not_null("location")
         def infer(self, data):
             geo = self.initialize_return_dict()
             for val in data["location"]:
-                if val is None:
-                    geo["geo_location_country"].append(None)
-                    geo["geo_location_address"].append(None)
-                else:
                     g = geocoder.geonames(val, key=self.key)
                     geo["geo_location_country"].append(g.country)
                     geo["geo_location_address"].append(g.address)
