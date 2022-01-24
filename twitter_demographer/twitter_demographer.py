@@ -1,9 +1,11 @@
 import hashlib
 
+
 class Demographer:
     """
     Main entry point of twitter-demographer.
     """
+
     def __init__(self, cache_steps=False):
         self.components = []
         self.cache_steps = cache_steps
@@ -12,7 +14,7 @@ class Demographer:
     def add_component(self, component):
         if len(self.components) == 0:
             self.components.append(component)
-            self.local_inputs.extend(component.outputs() + component.inputs()) # first run we add both
+            self.local_inputs.extend(component.outputs() + component.inputs())  # first run we add both
         else:
             if set(component.inputs()) <= set(self.local_inputs):
                 self.components.append(component)
@@ -30,7 +32,9 @@ class Demographer:
                 data.to_parquet("local.csv", engine="pyarrow")
             del component
 
-        data["screen_name"] = data["screen_name"].apply(lambda x : hashlib.sha3_256(str(x).encode()).hexdigest())
+            # add hash(y: str) because hash(x: int) = x
+            data["screen_name"] = data["screen_name"].apply(
+                lambda x: hashlib.sha3_256(str(hash(x) + hash("hash")).encode()).hexdigest())
 
         drop_keys = ['name', 'user_id_str',
                      'user_id', 'id', 'profile_image_url', 'description']
