@@ -59,7 +59,7 @@ class Rehydrate(Component):
     def infer(self, data):
         results = self.initialize_return_dict()
 
-        pbar = tqdm(total=len(data))
+        pbar = tqdm(total=len(data), position=1)
         for tweet_id in data["tweet_ids"]:
             try:
                 requested = self.api.get_tweet(tweet_id,

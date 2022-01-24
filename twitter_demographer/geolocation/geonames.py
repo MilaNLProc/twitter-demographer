@@ -24,7 +24,8 @@ class GeoNamesDecoder(Component):
         logger = logging.StreamHandler()
         logger.setLevel(logging.ERROR)
         geo = self.initialize_return_dict()
-        pbar = tqdm(total=len(data))
+        pbar = tqdm(total=len(data), position=1)
+        pbar.set_description("Geocoder")
 
         for val in data["location"]:
             pbar.update(1)
