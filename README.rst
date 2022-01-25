@@ -13,6 +13,10 @@ Twitter Demographer
         :target: https://twitter-demographer.readthedocs.io/en/latest/?version=latest
         :alt: Documentation Status
 
+.. image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/drive/1nk532mQS1MDAu_J3FpVTxPg21C5r44SE?usp=sharing
+    :alt: Open In Colab
+
 
 Twitter Demographer provides a simple API to enrich your twitter data with additional variables such as sentiment, user location,
 gender and age. The tool is completely extensible and you can add your own components to the system.
