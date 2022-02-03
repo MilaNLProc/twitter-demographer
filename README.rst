@@ -136,6 +136,20 @@ Current Components
 | Topic Modeling               | Contextualized Topic Modeling                   |
 +------------------------------+--------------------------+----------------------+
 
+Cite As
+-------
+
+::
+
+        @misc{bianchi2022twitterdemographer,
+              title={Twitter-Demographer: A Flow-based Tool to Enrich Twitter Data}, 
+              author={Federico Bianchi and Vincenzo Cutrona and Dirk Hovy},
+              year={2022},
+              eprint={2201.10986},
+              archivePrefix={arXiv},
+              primaryClass={cs.CL}
+        }
+
 Limitations and Ethical Considerations
 --------------------------------------
 
