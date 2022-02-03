@@ -1,6 +1,7 @@
 import abc
-
+import numpy as np
 import pandas as pd
+import random
 from tqdm import tqdm
 import tweepy
 from tweepy.errors import BadRequest
@@ -141,4 +142,46 @@ def not_null(param):
             return new_dict
         return wrapper
     return Inner
+
+def repropagate_on_duplicates(param):
+    """
+    k = pd.DataFrame({"text" : ["a", None, "b"]})
+
+
+    """
+    raise Exception("Not Implemented")
+    def Inner(func):
+        def wrapper(*args, **kwargs):
+
+            data = args[1]
+            to_function = data[~(data[param].isna())]
+            args = (args[0],) + (to_function,) + args[2:]
+            resulted = func(*args, **kwargs)
+
+            new_dict = dict()
+
+            for keys in resulted:
+                new_dict[keys] = [None] * len(data)
+                for index, value in zip(to_function.index.values.tolist(), resulted[keys]):
+                    new_dict[keys][index] = value
+
+            return new_dict
+        return wrapper
+    return Inner
+
+def label_swapper(dataframe, percentage=0.01):
+    msk = np.random.rand(len(dataframe)) < percentage
+    shuffle = dataframe[msk]
+    rest = dataframe[~msk]
+
+    col = random.choice(shuffle.cloumns)
+
+    vals = shuffle[col].values.tolist()
+    random.shuffle(vals)
+    shuffle[col] = vals
+
+    dataframe = pd.concat([rest, shuffle]).sample(frac=1)
+
+    return dataframe
+
 

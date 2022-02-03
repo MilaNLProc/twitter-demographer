@@ -66,6 +66,8 @@ decide what to add and what to remove.
     0  241b67c6c698a70b18533ea7d4196e6b8f8eafd39afc6a... 2022-01-03 12:13:11+00:00  ...               Zurich                                         2
     3  df94741e2317dc8bfca7506f575ba3bd9a83deabfd9eec... 2020-08-04 15:02:04+00:00  ...            Viganello                                         2
 
+
+
 Use-Case
 --------
 
@@ -119,6 +121,20 @@ GeoNamesDecoder to predict the location of a user from a string of text looks li
                     geo["geo_location_country"].append(g.country)
                     geo["geo_location_address"].append(g.address)
             return geo
+Current Components
+------------------
+
++------------------------------+-------------------------------------------------+
+| Name                         |  Tool                                           |
++==============================+=================================================+
+| Geolocation                  | GeoNames                                        |
++------------------------------+-------------------------------------------------+
+| Sentiment / HateSpeech       | HuggingFace Models                              |
++------------------------------+--------------------------+----------------------+
+| Demographics                 | M3Inference, FairFace Coming Soon               |
++------------------------------+--------------------------+----------------------+
+| Topic Modeling               | Contextualized Topic Modeling                   |
++------------------------------+--------------------------+----------------------+
 
 Limitations and Ethical Considerations
 --------------------------------------
