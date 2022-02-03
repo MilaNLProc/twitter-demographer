@@ -121,8 +121,12 @@ GeoNamesDecoder to predict the location of a user from a string of text looks li
                     geo["geo_location_country"].append(g.country)
                     geo["geo_location_address"].append(g.address)
             return geo
+
 Current Components
 ------------------
+
+The project and the components are still under development and we are working on introducing novel pipelines to support
+different use-cases.
 
 +------------------------------+-------------------------------------------------+
 | Name                         |  Tool                                           |
@@ -142,7 +146,7 @@ Cite As
 ::
 
         @misc{bianchi2022twitterdemographer,
-              title={Twitter-Demographer: A Flow-based Tool to Enrich Twitter Data}, 
+              title={Twitter-Demographer: A Flow-based Tool to Enrich Twitter Data},
               author={Federico Bianchi and Vincenzo Cutrona and Dirk Hovy},
               year={2022},
               eprint={2201.10986},
@@ -153,9 +157,14 @@ Cite As
 Limitations and Ethical Considerations
 --------------------------------------
 
-Inferring user attributes always carries the risk of compromising user privacy, while this process can be useful for
-understanding and explaining phenomena in the social sciences, one should always consider the issues that this can create.
+Twitter Demographer does not come without limitations.
+Some of these are related to the precision of the components used; for example, the Geonames decoder can fail the disambiguation - even if it has been adopted by other researchers and services. At the same time, the the topic modeling pipeline can be affected by the number of tweets used to train the model and by other training issues (fixing random seeds can generate suboptimal solutions).
 
+The tool wraps the API from M3 for age and gender prediction. However, those predictions for gender are binary (male or female) and thus give a stereotyped representation of gender. Our intent is not to make normative claims about gender, as this is far from our beliefs. Twitter Demographer allows using other, more flexible tools. The API needs both text and user profile pictures of a tweet to make inferences, for that reason the tool has to include such information in the dataset during the pipeline execution. While this information is public (e.g., user profile pictures), the final dataset contains also inferred information, which may not be publicly available (e.g., gender or age of the user). We cannot completely prevent misuse of this capability but have taken steps to substantially reduce the risk and promote privacy by design.
+
+Inferring user attributes carries the risk of privacy violations. We follow the definitions and recommendations of the European Union's General Data Protection Regulation for algorithmic pseudo-anonymity. We implement several measures to break a direct mapping between attributes and identifiable users without reducing the generalizability of aggregate findings on the data.
+Our measures follow the GDPR definition of a "motivated intruder", i.e., it requires "significant effort" to undo our privacy protection measures. However, given enough determination and resources, a bad actor might still be able to circumvent or reverse-engineer these measures. This is true independent of Twitter Demographer, though, as existing tools could be used more easily to achieve those goals.
+Using the tool provides practitioners with a reasonable way to protect anonymity.
 
 Credits
 -------
