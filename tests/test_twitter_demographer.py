@@ -16,4 +16,6 @@ def test_demographer():
     demo.add_component(re)
     demo.add_component(geo)
 
+    # todo: need to find a way to test components, not sure github actions can support demanding computations
+
 
