@@ -25,6 +25,8 @@ gender and age. The tool is completely extensible and you can add your own compo
 * Free software: MIT license
 * Documentation: https://twitter-demographer.readthedocs.io.
 
+**Note** the API is still under development (e.g., we have a lot of logging going on behind the scene) feel free to
+suggest improvements or submit PRs! We are also working on improving the documentation and adding more examples!
 
 Features
 --------
@@ -146,6 +148,8 @@ Current Components
 
 The project and the components are still under development and we are working on introducing novel pipelines to support
 different use-cases.
+
+You can see the components currently integrated in the system `here <https://twitter-demographer.readthedocs.io/en/latest/components.html>`__
 
 +------------------------------+-------------------------------------------------+
 | Name                         |  Tool                                           |
