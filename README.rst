@@ -35,6 +35,14 @@ variables to your dataset.
 You are not forced to use a specific component. The design of this tool should be modular enough to allow you to
 decide what to add and what to remove.
 
+Let's make an example: you have a set of tweet ids (from english speakers) and you want to:
+
++ reconstruct the original tweets
++ disambiugate the location of the users
++ predict the sentiment of the tweet.
+
+This can be done with very few lines of code with this library.
+
 .. code-block:: python
 
     from twitter_demographer.twitter_demographer import Demographer
@@ -66,12 +74,23 @@ decide what to add and what to remove.
     0  241b67c6c698a70b18533ea7d4196e6b8f8eafd39afc6a... 2022-01-03 12:13:11+00:00  ...               Zurich                                         2
     3  df94741e2317dc8bfca7506f575ba3bd9a83deabfd9eec... 2020-08-04 15:02:04+00:00  ...            Viganello                                         2
 
+Note that you still need to register to both twitter developer and to geonames to use the services.
 
+Privacy Matters
+---------------
 
-Use-Case
---------
+Following the recommendations of the EU's General Data Protection Regulation, we implement a variety of measures to ensure pseudo-anonymity by design. Using \tool provides several built-in measures to remove identifying information and protect user privacy:
 
-Say you want to use a custom classifier on some Twitter Data you have. For example, you might want to
++ removing identifiers
++ unidirectional hashing
++ aggregate label swapping.
+
+This does not compromise the value of aggregated analysis but allows for a fairer usage of this data.
+
+Extending
+---------
+
+However, the library is also extensible. Say you want to use a custom classifier on some Twitter Data you have. For example, you might want to
 detect the sentiment of the data using your own classifier.
 
 .. code-block:: python

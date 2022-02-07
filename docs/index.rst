@@ -8,6 +8,7 @@ Welcome to Twitter Demographer's documentation!
    readme
    installation
    usage
+   components
    modules
    contributing
    authors
