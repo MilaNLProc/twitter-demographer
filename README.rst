@@ -22,6 +22,10 @@ Twitter Demographer provides a simple API to enrich your twitter data with addit
 gender and age. The tool is completely extensible and you can add your own components to the system.
 
 
+.. image:: https://raw.githubusercontent.com/MilaNLProc/twitter-demographer/main/img/twitter-demographer.gif
+   :width: 400pt
+
+
 * Free software: MIT license
 * Documentation: https://twitter-demographer.readthedocs.io.
 
