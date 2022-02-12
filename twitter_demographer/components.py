@@ -6,12 +6,14 @@ from tqdm import tqdm
 import tweepy
 from tweepy.errors import BadRequest
 import transformers
-from collections import defaultdict
 from abc import ABC
 
 transformers.logging.set_verbosity(transformers.logging.ERROR)
 
 class Component(ABC):
+    """
+    Abstract component class
+    """
 
     def __init__(self):
         self.output_parameters = self.outputs()

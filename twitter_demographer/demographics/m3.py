@@ -6,6 +6,7 @@ from twitter_demographer.support import utils
 from multiprocessing import Pool
 from appdirs import user_cache_dir
 import shutil
+import multiprocessing
 
 
 class GenderAndAge(Component):
@@ -86,8 +87,8 @@ class InternalGenderAgeFinder:
                 img_file_resize = ""
 
             images.append((user['profile_image_url'], img_file_resize))
-
-        with Pool(4) as p:
+        cpus = multiprocessing.cpu_count() - 1 or 1
+        with Pool(cpus) as p:
             outputs = p.starmap(utils.download_resize_img, images)
 
         for user, is_retrieved in zip(users, outputs):

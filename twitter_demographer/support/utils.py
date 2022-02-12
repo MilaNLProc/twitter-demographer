@@ -1,10 +1,27 @@
 """
 Code has been imported from the M3Inference Library.
 """
-
 import urllib.request
 from io import BytesIO
 from PIL import Image
+from appdirs import user_cache_dir
+import os
+from multiprocessing import Pool
+import multiprocessing
+from twitter_demographer.support import utils
+
+
+def twitter_preprocess(text):
+    """
+    Stole this from: https://huggingface.co/cardiffnlp/twitter-roberta-base-offensive?text=I+think+they+are+a+bunch+of+losers.
+    :param text:
+    :return:
+    """
+    new_text = []
+    for t in text.split(" "):
+        t = '@user' if t.startswith('@') and len(t) > 1 else t
+        new_text.append(t)
+    return " ".join(new_text)
 
 def get_extension(img_path):
     dotpos = img_path.rfind(".")
