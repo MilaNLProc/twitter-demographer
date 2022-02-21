@@ -8,8 +8,11 @@ from appdirs import user_cache_dir
 import os
 from multiprocessing import Pool
 import multiprocessing
-from twitter_demographer.support import utils
 
+def chunks(lst, n):
+    """Yield successive n-sized chunks from lst."""
+    for i in range(0, len(lst), n):
+        yield lst[i:i + n]
 
 def twitter_preprocess(text):
     """
