@@ -1,13 +1,26 @@
 import time
 from twitter_demographer.components import Component
 import requests
+from typing import Union
 import json
+from typing import List
 from twitter_demographer.components import not_null
 from tqdm import tqdm
 
 class PerspectiveScorer(Component):
+    """
+    This component uses the perspective API to annotate tweets
+    https://developers.perspectiveapi.com/s/about-the-api
+    """
 
-    def __init__(self, api_key, attributes=None, wait_seconds=2, **kwargs):
+    def __init__(self, api_key: str, attributes: Union[List[str], None] = None, wait_seconds: int = 2, **kwargs):
+        """
+
+        :param api_key: API KEY provided by https://developers.perspectiveapi.com
+        :param attributes: list of the attributes to use from the perspective API
+        :param wait_seconds: how many seconds to wait for each request. This varies if you have the free quota or not
+        :param kwargs:
+        """
         self.api_key = api_key
         if attributes is None:
             self.attributes = "TOXICITY,SEVERE_TOXICITY,IDENTITY_ATTACK,INSULT,PROFANITY,THREAT".split(",")
