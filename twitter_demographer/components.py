@@ -16,7 +16,7 @@ class Component(ABC):
     Abstract component class
     """
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.output_parameters = self.outputs()
 
     @abc.abstractmethod
