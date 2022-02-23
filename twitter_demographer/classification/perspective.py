@@ -7,6 +7,7 @@ from typing import List
 from twitter_demographer.components import not_null
 from tqdm import tqdm
 
+
 class PerspectiveScorer(Component):
     """
     This component uses the perspective API to annotate tweets
@@ -78,5 +79,3 @@ class PerspectiveScorer(Component):
                                  params=params, data=data)
 
         return {index: response.json()["attributeScores"][index]["summaryScore"]["value"] for index in self.attributes}
-
-
