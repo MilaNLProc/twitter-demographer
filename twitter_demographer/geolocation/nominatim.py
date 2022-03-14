@@ -31,7 +31,7 @@ class NominatimDecoder(Component):
             g = geocoder.osm(val, server_url=self.server_url).osm
 
             if "addr:country" in g:
-                geo["nominatim_country"].append(g["addr:conuntry"])
+                geo["nominatim_country"].append(g["addr:country"])
 
             if "addr:city" in g:
                 geo["nominatim_city"].append(g["addr:city"])
