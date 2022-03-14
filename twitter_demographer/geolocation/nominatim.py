@@ -9,7 +9,7 @@ class NominatimDecoder(Component):
     Wrappers on the geocoder API to disambiguate users' locations using nominatim from open street map
     """
 
-    def __init__(self, server_url):
+    def __init__(self, server_url="https://nominatim.openstreetmap.org/search"):
         super().__init__()
         self.server_url = server_url
 
@@ -28,14 +28,25 @@ class NominatimDecoder(Component):
         pbar.set_description("Geocoder")
 
         for val in data["location"]:
-            g = geocoder.osm(val, server_url=self.server_url).osm
 
-            if "addr:country" in g:
-                geo["nominatim_country"].append(g["addr:country"])
+            if val is None:
+                geo["nominatim_country"].append(None)
+                geo["nominatim_city"].append(None)
+            else:
 
-            if "addr:city" in g:
-                geo["nominatim_city"].append(g["addr:city"])
+                g = geocoder.osm(val, server_url=self.server_url).osm
+
+                if "addr:country" in g:
+                    geo["nominatim_country"].append(g["addr:country"])
+                else:
+                    geo["nominatim_country"].append(None)
+
+                if "addr:city" in g:
+                    geo["nominatim_city"].append(g["addr:city"])
+                else:
+                    geo["nominatim_city"].append(None)
 
             pbar.update(1)
         pbar.close()
+
         return geo
