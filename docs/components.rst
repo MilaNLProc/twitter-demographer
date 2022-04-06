@@ -4,9 +4,10 @@ Components
 Twitter Rehydration
 -------------------
 
+
+
 GeoLocation
 -----------
-
 
 We currently embed two components for geolocation.
 
