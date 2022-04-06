@@ -9,11 +9,19 @@ def liwc_tokenize(text):
         yield match.group(0)
 
 class LIWCAnalyzer(Component):
+    """
+    A wrapper over LIWC files
+    """
 
     def __init__(self, liwc_dic, **kwargs):
+        """
+
+        :param liwc_dic: this is the liwc file. The method exepcts something like "LIWC2007_English100131.dic"
+        :param kwargs:
+        """
 
         parse, category_names = liwc.load_token_parser(liwc_dic)
-        self.category_names = []
+        self.category_names = category_names
         self.parse = parse
         super().__init__(**kwargs)
 
