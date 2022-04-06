@@ -159,13 +159,13 @@ You can see the components currently integrated in the system `here <https://twi
 +------------------------------+-------------------------------------------------+
 | Name                         |  Tool                                           |
 +==============================+=================================================+
-| Geolocation                  | GeoNames                                        |
+| Geolocation                  |  GeoNames, OpenStreetMap                        |
 +------------------------------+-------------------------------------------------+
 | HateSpeech                   |  Perspective API                                |
 +------------------------------+-------------------------------------------------+
 | Classification               |  Support for all HuggingFace Classifiers        |
 +------------------------------+-------------------------------------------------+
-| Demographics                 | M3Inference, FairFace Coming Soon               |
+| Demographics                 | M3Inference, FairFace (Coming Soon)             |
 +------------------------------+-------------------------------------------------+
 | Topic Modeling               | Contextualized Topic Modeling                   |
 +------------------------------+-------------------------------------------------+
