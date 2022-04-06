@@ -3,15 +3,17 @@ import geocoder
 from twitter_demographer.components import Component
 import logging
 from twitter_demographer.components import not_null
+import time
 
 class NominatimDecoder(Component):
     """
     Wrappers on the geocoder API to disambiguate users' locations using nominatim from open street map
     """
 
-    def __init__(self, server_url="https://nominatim.openstreetmap.org/search"):
+    def __init__(self, server_url="https://nominatim.openstreetmap.org/search", sleep_time=1.5):
         super().__init__()
         self.server_url = server_url
+        self.sleep_time = sleep_time
 
     def outputs(self):
         return ["nominatim_city", "nominatim_country"]
@@ -45,6 +47,7 @@ class NominatimDecoder(Component):
                     geo["nominatim_city"].append(g["addr:city"])
                 else:
                     geo["nominatim_city"].append(None)
+                time.sleep(self.sleep_time)
 
             pbar.update(1)
         pbar.close()

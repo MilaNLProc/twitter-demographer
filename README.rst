@@ -53,6 +53,7 @@ This can be done with very few lines of code with this library.
 
     from twitter_demographer.twitter_demographer import Demographer
     from twitter_demographer.components import Rehydrate
+    from twitter_demographer.geolocation import NominatimDecoder
     from twitter_demographer.demographics.m3 import GenderAndAge
     import pandas as pd
 
@@ -61,7 +62,7 @@ This can be done with very few lines of code with this library.
     data = pd.DataFrame({"tweet_ids": ["1477976329710673921", "1467887350084689928", "1467887352647462912", "1290664307370360834", "1465284810696445952"]})
 
     component_one = Rehydrate(BEARER_TOKEN)
-    component_two = GeoNamesDecoder(GEONAMES_TOKEN)
+    component_two = NominatimDecoder()
     component_three = HuggingFaceClassifier("cardiffnlp/twitter-roberta-base-sentiment")
 
 
