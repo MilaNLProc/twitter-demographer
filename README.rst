@@ -32,6 +32,19 @@ gender and age. The tool is completely extensible and you can add your own compo
 **Note** the API is still under development (e.g., we have a lot of logging going on behind the scene) feel free to
 suggest improvements or submit PRs! We are also working on improving the documentation and adding more examples!
 
+If you find this useful, please remember to cite the following paper:
+
+.. code-block::
+
+    @article{bianchi2022twitter,
+      title={Twitter-Demographer: A Flow-based Tool to Enrich Twitter Data},
+      author={Bianchi, Federico and Cutrona, Vincenzo and Hovy, Dirk},
+      journal={arXiv preprint arXiv:2201.10986},
+      year={2022}
+    }
+
+
+
 Features
 --------
 
@@ -44,7 +57,7 @@ decide what to add and what to remove.
 Let's make an example: you have a set of tweet ids (from english speakers) and you want to:
 
 + reconstruct the original tweets
-+ disambiugate the location of the users
++ disambiguate the location of the users
 + predict the sentiment of the tweet.
 
 This can be done with very few lines of code with this library.
