@@ -23,6 +23,10 @@ def test_demographer():
     demo.infer(data)
 
 def test_liwc():
+    """
+    For this test we replicate the test run by the package liwc-python
+    :return:
+    """
     demo = twitter_demographer.Demographer()
     le = LIWCAnalyzer("tests/alpha.dic")
 
@@ -34,7 +38,7 @@ def test_liwc():
 
     data = demo.infer(data)
 
-    assert data["LIWC_A"].values[0] == 3
-    assert data["LIWC_Bravo"].values[0] == 2
+    assert data["LIWC_A"].values[0] == 2
+    assert data["LIWC_Bravo"].values[0] == 1
 
 
