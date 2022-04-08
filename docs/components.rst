@@ -65,8 +65,8 @@ as a column with the respective count.
 
 .. code-block:: bash
 
-                            text                                        screen_name  LIWC_A  LIWC_Bravo
-0  Any alpha bravo charlie Bravo  9f6ceda15ffa18bf2b27ec85880c6fa72a2ed139bb5d03...       2           2
+                                text                                        screen_name  LIWC_A  LIWC_Bravo
+    0  Any alpha bravo charlie Bravo  9f6ceda15ffa18bf2b27ec85880c6fa72a2ed139bb5d03...       2           2
 
 
 Topic Modeling
