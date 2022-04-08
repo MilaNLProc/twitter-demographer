@@ -14,7 +14,7 @@ def test_demographer():
     demo = twitter_demographer.Demographer()
     data = pd.DataFrame({"tweet_ids": ["1477976329710673921", "1467887350084689928"]})
 
-    re = Rehydrate(os.getenv("tweepy_bearer_token"))
+    re = Rehydrate(os.getenv('TWEEPY_BEARER_TOKEN'))
     geo = NominatimDecoder()
 
     demo.add_component(re)
