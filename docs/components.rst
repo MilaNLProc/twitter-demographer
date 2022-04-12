@@ -54,7 +54,8 @@ Word Counters
 LIWC
 ~~~~
 
-Twitter Demographer supports LIWC counters. Instantiating the component is very easy.
+Twitter Demographer supports LIWC counters. The component assumes you have access to a LIWC dictionary.
+Instantiating the component is very easy.
 
 .. code-block:: python
 

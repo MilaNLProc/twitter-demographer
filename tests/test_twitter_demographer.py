@@ -39,6 +39,6 @@ def test_liwc():
     data = demo.infer(data)
 
     assert data["LIWC_A"].values[0] == 2
-    assert data["LIWC_Bravo"].values[0] == 1
+    assert data["LIWC_Bravo"].values[0] == 2
 
 
