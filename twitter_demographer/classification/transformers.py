@@ -10,6 +10,7 @@ import transformers
 import datasets
 
 datasets.logging.disable_progress_bar()
+transformers.logging.disable_progress_bar()
 
 class HuggingFaceClassifier(Component):
     """

@@ -23,8 +23,8 @@ class NominatimDecoder(Component):
 
     @not_null("location")
     def infer(self, data):
-        logger = logging.StreamHandler()
-        logger.setLevel(logging.ERROR)
+
+
         geo = self.initialize_return_dict()
         pbar = tqdm(total=len(data), position=1)
         pbar.set_description("Geocoder")
