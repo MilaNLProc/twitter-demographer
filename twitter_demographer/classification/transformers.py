@@ -7,10 +7,9 @@ import numpy as np
 from twitter_demographer.components import Component
 from twitter_demographer.components import not_null
 import transformers
-transformers.logging.set_verbosity_error()
 import datasets
 
-datasets.set_progress_bar_enabled(False)
+datasets.logging.disable_progress_bar()
 
 class HuggingFaceClassifier(Component):
     """
@@ -41,8 +40,6 @@ class HuggingFaceClassifier(Component):
         transformers.logging.set_verbosity_error()
 
         trainer = Trainer(model=model)
-
-        transformers.logging.set_verbosity_error()
 
         local_results = np.argmax(trainer.predict(train_dataset)[0], axis=1)
 
