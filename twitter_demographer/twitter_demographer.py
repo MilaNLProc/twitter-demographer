@@ -2,6 +2,7 @@ import hashlib
 from tqdm import tqdm
 import datetime
 import json
+import logging
 
 
 class Demographer:
@@ -27,15 +28,16 @@ class Demographer:
     def infer(self, data):
         pbar = tqdm(total=len(self.components), position=0)
         data = data.copy()
-        pbar.set_description("Running Demographer")
-        for component in self.components:
 
+        for index, component in enumerate(self.components):
+            pbar.set_description(f"Running Demographer: Component {index + 1}")
             update = component.infer(data)
             for key, value in update.items():
                 data[key] = value
 
             if self.cache_steps:
                 data.to_parquet("local.csv", engine="pyarrow")
+
             del component
             pbar.update(1)
 

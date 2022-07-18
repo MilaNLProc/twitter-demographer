@@ -10,10 +10,12 @@ class NominatimDecoder(Component):
     Wrappers on the geocoder API to disambiguate users' locations using nominatim from open street map
     """
 
-    def __init__(self, server_url="https://nominatim.openstreetmap.org/search", sleep_time=1.5):
+    def __init__(self, server_url="https://nominatim.openstreetmap.org/search", sleep_time=1.5, logger_level=logging.CRITICAL):
         super().__init__()
         self.server_url = server_url
         self.sleep_time = sleep_time
+        requests_logger = logging.getLogger('geocoder')
+        requests_logger.setLevel(logger_level)
 
     def outputs(self):
         return ["nominatim_city", "nominatim_country"]
