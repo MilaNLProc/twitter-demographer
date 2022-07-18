@@ -2,6 +2,7 @@ import hashlib
 from tqdm import tqdm
 import datetime
 import json
+import random
 
 
 
@@ -10,10 +11,11 @@ class Demographer:
     Main entry point of twitter-demographer.
     """
 
-    def __init__(self, cache_steps=False):
+    def __init__(self, cache_steps=False, label_swapping=True):
         self.components = []
         self.cache_steps = cache_steps
         self.local_inputs = []
+        self.label_swapping = label_swapping
 
     def add_component(self, component):
         if len(self.components) == 0:
@@ -52,6 +54,18 @@ class Demographer:
             del data[key]
 
         data = data.sample(frac=1)
+
+        if len(data) > 100:
+            if self.label_swapping:
+                noisy = int((len(data) * 0.01)/2) + 1
+                for _ in range(0, noisy):
+                    col = random.choice(data.columns)
+                    idx1, idx2 = data
+
+                    data[col].iloc[idx1] = data[col].iloc[idx2]
+                return data
+            else:
+                return data
 
         return data
 
