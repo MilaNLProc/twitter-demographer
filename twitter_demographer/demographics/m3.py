@@ -7,15 +7,17 @@ from multiprocessing import Pool
 from appdirs import user_cache_dir
 import shutil
 import multiprocessing
-
+import logging
 
 class GenderAndAge(Component):
     """
     Provides a wrapper on the m3 dataset to predict age and binary gender in twitter data
     """
 
-    def __init__(self):
+    def __init__(self, logger_level=logging.CRITICAL):
         super().__init__()
+        requests_logger = logging.getLogger("m3inference")
+        requests_logger.setLevel(logger_level)
 
     def outputs(self):
         return ["screen_name",
@@ -31,10 +33,6 @@ class GenderAndAge(Component):
 
     def infer(self, data):
         classifier = InternalGenderAgeFinder()
-
-        results = self.initialize_return_dict()
-
-        #data = data[list(results.keys())]
 
         to_test_data = data.drop_duplicates(subset=["screen_name"])
 
@@ -87,6 +85,7 @@ class InternalGenderAgeFinder:
                 img_file_resize = ""
 
             images.append((user['profile_image_url'], img_file_resize))
+
         cpus = multiprocessing.cpu_count() - 1 or 1
         with Pool(cpus) as p:
             outputs = p.starmap(utils.download_resize_img, images)
@@ -108,7 +107,6 @@ class InternalGenderAgeFinder:
 
             if is_retrieved:
                 imaged_users.append(user)
-                print(imaged_users)
             else:
                 without_image_users.append(user)
 
@@ -123,6 +121,7 @@ class InternalGenderAgeFinder:
             is_org = 'non-org' if value["org"]['non-org'] > value["org"]['is-org'] else 'is-org'
             age_dict = {k: v for (k, v) in value["age"].items()}
             age = max(age_dict, key=age_dict.get)
+
 
             output_classifier[str(key)] = {"age": age,
                                            "gender": gender,

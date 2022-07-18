@@ -2,7 +2,7 @@ import hashlib
 from tqdm import tqdm
 import datetime
 import json
-import logging
+
 
 
 class Demographer:
@@ -41,9 +41,9 @@ class Demographer:
             del component
             pbar.update(1)
 
-            # add hash(y: str) because hash(x: int) = x
-            data["screen_name"] = data["screen_name"].apply(
-                lambda x: hashlib.sha3_256(str(hash(x) + hash("hash")).encode()).hexdigest())
+        # add hash(y: str) because hash(x: int) = x
+        data["screen_name"] = data["screen_name"].apply(
+            lambda x: hashlib.sha3_256(str(hash(x) + hash("hash")).encode()).hexdigest())
         pbar.close()
         drop_keys = ['tweet_ids', 'name', 'user_id_str',
                      'user_id', 'id', 'profile_image_url', 'description']
