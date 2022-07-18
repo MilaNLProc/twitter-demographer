@@ -1,4 +1,4 @@
-from tqdm import tqdm
+from tqdm.auto import tqdm
 import geocoder
 from twitter_demographer.components import Component
 import logging

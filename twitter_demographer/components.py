@@ -2,7 +2,7 @@ import abc
 import numpy as np
 import pandas as pd
 import random
-from tqdm import tqdm
+from tqdm.auto import tqdm
 import tweepy
 from tweepy.errors import BadRequest
 import transformers

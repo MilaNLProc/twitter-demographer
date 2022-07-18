@@ -1,4 +1,4 @@
-from tqdm import tqdm
+from tqdm.auto import tqdm
 import geocoder
 from twitter_demographer.components import Component
 import logging
@@ -25,7 +25,6 @@ class NominatimDecoder(Component):
 
     @not_null("location")
     def infer(self, data):
-
 
         geo = self.initialize_return_dict()
         pbar = tqdm(total=len(data), position=1)
