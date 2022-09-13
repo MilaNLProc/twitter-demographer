@@ -66,8 +66,8 @@ This can be done with very few lines of code with this library.
 
     from twitter_demographer.twitter_demographer import Demographer
     from twitter_demographer.components import Rehydrate
-    from twitter_demographer.geolocation import NominatimDecoder
-    from twitter_demographer.demographics.m3 import GenderAndAge
+    from twitter_demographer.geolocation.nominatim import NominatimDecoder
+    from twitter_demographer.classification.transformers import HuggingFaceClassifier
     import pandas as pd
 
     demo = Demographer()
