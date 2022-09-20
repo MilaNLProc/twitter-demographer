@@ -39,7 +39,7 @@ If you find this useful, please remember to cite the following paper:
     @article{bianchi2022twitter,
       title={Twitter-Demographer: A Flow-based Tool to Enrich Twitter Data},
       author={Bianchi, Federico and Cutrona, Vincenzo and Hovy, Dirk},
-      journal={arXiv preprint arXiv:2201.10986},
+      journal={EMNLP},
       year={2022}
     }
 
