@@ -60,7 +60,7 @@ class Demographer:
                 noisy = int((len(data) * 0.01)/2) + 1
                 for _ in range(0, noisy):
                     col = random.choice(data.columns)
-                    idx1, idx2 = data
+                    idx1, idx2 = random.sample(data.index.tolist(), 2)
 
                     data[col].iloc[idx1] = data[col].iloc[idx2]
                 return data
