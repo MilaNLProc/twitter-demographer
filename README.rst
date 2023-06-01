@@ -30,7 +30,9 @@ gender and age. The tool is completely extensible and you can add your own compo
 * Documentation: https://twitter-demographer.readthedocs.io.
 
 **Note** the API is still under development (e.g., we have a lot of logging going on behind the scene) feel free to
-suggest improvements or submit PRs! We are also working on improving the documentation and adding more examples!
+suggest improvements or submit PRs!
+
+**Note** In addition to this, it's often important to double check predictions; we suggest sampling some tweets and checking the various annotations manually (e.g., age, gender, sentiment).
 
 If you find this useful, please remember to cite the following paper:
 
